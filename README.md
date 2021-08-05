@@ -35,6 +35,12 @@ $ python train.py
 $ python train.py --learning_rate=0.003
 ```
 
+#### 5. Test model for VQA task.
+
+```bash
+$ python test.py --saved_model="models/best-model.pth" --image_path="datasets/Images/test2015/COCO_test2015_000000000001.jpg" --question="What is the fence made of?" 
+```
+
 ## Results
 
 - Comparison Result

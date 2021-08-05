@@ -125,6 +125,8 @@ def main(args):
         if (epoch+1) % args.save_step == 0:
             torch.save({'epoch': epoch+1, 'state_dict': model.state_dict()},
                        os.path.join(args.model_dir, 'model-epoch-{:02d}.ckpt'.format(epoch+1)))
+    
+    torch.save(model, os.path.join(args.model_dir, 'best-model.pth'))
 
 
 if __name__ == '__main__':

@@ -85,8 +85,19 @@ def main(args):
     question = question.to(device)
     question = question.unsqueeze(dim=0)
 
-    # fix code from here.
     model = torch.load(args.saved_model)
+
+    # model = VqaModel(
+    #     embed_size=1024,
+    #     qst_vocab_size=len(qst_vocab),
+    #     ans_vocab_size=len(ans_vocab),
+    #     word_embed_size=300,
+    #     num_layers=2,
+    #     hidden_size=512
+    # )
+    # checkpoint = torch.load(args.saved_model)
+    # model.load_state_dict(checkpoint['state_dict'])
+
     model = model.to(device)
 
     model.eval()
