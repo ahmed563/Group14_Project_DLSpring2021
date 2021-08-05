@@ -85,18 +85,18 @@ def main(args):
     question = question.to(device)
     question = question.unsqueeze(dim=0)
 
-    model = torch.load(args.saved_model)
+    # model = torch.load(args.saved_model)
 
-    # model = VqaModel(
-    #     embed_size=1024,
-    #     qst_vocab_size=len(qst_vocab),
-    #     ans_vocab_size=len(ans_vocab),
-    #     word_embed_size=300,
-    #     num_layers=2,
-    #     hidden_size=512
-    # )
-    # checkpoint = torch.load(args.saved_model)
-    # model.load_state_dict(checkpoint['state_dict'])
+    model = VqaModel(
+        embed_size=1024,
+        qst_vocab_size=len(qst_vocab),
+        ans_vocab_size=len(ans_vocab),
+        word_embed_size=300,
+        num_layers=2,
+        hidden_size=512
+    )
+    checkpoint = torch.load(args.saved_model)
+    model.load_state_dict(checkpoint['state_dict'])
 
     model = model.to(device)
 
@@ -104,11 +104,11 @@ def main(args):
     output = model(image, question)
 
     predicts = torch.softmax(output, 1)
-    probs, indices = torch.topk(predicts, k=5, dim=1)
+    probs, indices = torch.topk(predicts, k=len(ans_vocab), dim=1)
     probs = probs.squeeze()
     indices = indices.squeeze()
     print("predicted - probabilty")
-    for i in range(5):
+    for i in range(len(ans_vocab)):
         print("'{}' - {:.4f}".format(ans_vocab[indices[i].item()], probs[i].item()))
 
 
